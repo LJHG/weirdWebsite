@@ -1,0 +1,17 @@
+@media screen and (min-width : 1280px)
+{
+    .container{
+        width: 1280px !important;
+    }
+}
+
+
+
+/* .jumbotron{
+    background-color:transparent;
+} */
+
+.form-control{
+    max-width: 240px;  
+    /* 稍微改短一点 */
+}

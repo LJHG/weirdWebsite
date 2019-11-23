@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  <!-- 导入bootstrap css -->
+
+  <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+
+  <!-- 导入自己的css文件 -->
+  <link rel="stylesheet" href="../static/css/babynames.css">
+  <script src="../static/js/jquery-3.4.1.min.js"></script>
+  <script src="../static/echarts/echarts.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>电影推荐平台</h1>
+    <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p> -->
+  </div>
+  <div class="container">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a href="/babynames_1">实验1</a></li>
+      <li role="presentation" class="active"><a href="/MovieRecommend_1">实验2</a></li>
+      <li role="presentation"><a href="/">回到主页</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="/MovieRecommend_1">为您推荐电影</a></li>
+        </ul>
+        <hr class="hidden-sm hidden-md hidden-lg">
+      </div>
+      <div class="col-md-9">
+        <P>下面是我们为您推荐的电影</P>
+        <table class="table table-striped" style="width: 50%; height: auto;" >
+          <tr align="center">
+            <td>电影名字</td>
+          </tr>
+          {% for item in movies%}
+          <tr align="center">
+            <td>{{item}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        
+        <p>下面有这些用户的电影偏好和你相似</p>
+        <table class="table table-striped" style="width: 50%; height: auto;" >
+          <tr align="center">
+            <td>用户id</td>
+          </tr>
+          {% for item in user_list%}
+          <tr align="center">
+            <td>{{item}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <p>下面是这些用户与你的共同评分</p>
+
+        <p>用户{{user1id}}</p>
+        <table class="table table-striped" >
+          <tr align="center">
+            <td width="50%">电影名字</td>
+            <td>你的评分</td>
+            <td>用户{{user1id}}的评分</td>
+          </tr>
+          {% for item in user1_commonscore %}
+          <tr align="center">
+            <td >{{item.moviename}}</td>
+            <td>{{item.myscore}}</td>
+            <td>{{item.userscore}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <p>用户{{user2id}}</p>
+        <table class="table table-striped" >
+          <tr align="center">
+            <td width="50%">电影名字</td>
+            <td>你的评分</td>
+            <td>用户{{user2id}}的评分</td>
+          </tr>
+          {% for item in user2_commonscore %}
+          <tr align="center">
+            <td>{{item.moviename}}</td>
+            <td>{{item.myscore}}</td>
+            <td>{{item.userscore}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <p>用户{{user3id}}</p>
+        <table class="table table-striped" >
+          <tr align="center">
+            <td width="50%">电影名字</td>
+            <td>你的评分</td>
+            <td>用户{{user3id}}的评分</td>
+          </tr>
+          {% for item in user3_commonscore %}
+          <tr align="center">
+            <td>{{item.moviename}}</td>
+            <td>{{item.myscore}}</td>
+            <td>{{item.userscore}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <p>用户{{user4id}}</p>
+        <table class="table table-striped" >
+          <tr align="center">
+            <td width="50%">电影名字</td>
+            <td>你的评分</td>
+            <td>用户{{user4id}}的评分</td>
+          </tr>
+          {% for item in user4_commonscore %}
+          <tr align="center">
+            <td width="50%">{{item.moviename}}</td>
+            <td>{{item.myscore}}</td>
+            <td>{{item.userscore}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <p>用户{{user5id}}</p>
+        <table class="table table-striped" >
+          <tr align="center">
+            <td width="50%">电影名字</td>
+            <td>你的评分</td>
+            <td>用户{{user5id}}的评分</td>
+          </tr>
+          {% for item in user5_commonscore %}
+          <tr align="center">
+            <td>{{item.moviename}}</td>
+            <td>{{item.myscore}}</td>
+            <td>{{item.userscore}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="jumbotron text-center" style="margin-bottom:0">
+    <p>written by ljh 20174302</p>
+  </div>
+</body>
+
+</html>

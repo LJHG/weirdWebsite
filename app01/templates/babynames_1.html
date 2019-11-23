@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  <!-- 导入bootstrap css -->
+
+  <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+
+  <!-- 导入自己的css文件 -->
+  <link rel="stylesheet" href="../static/css/babynames.css">
+  <script src="../static/js/jquery-3.4.1.min.js"></script>
+  <script src="../static/echarts/echarts.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>1880-2010年美国出生婴儿姓名数据</h1>
+    <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p> -->
+  </div>
+  <div class="container">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="/babynames_1">实验1</a></li>
+      <li role="presentation"><a href="/MovieRecommend_1">实验2</a></li>
+      <li role="presentation"><a href="/">回到主页</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="/babynames_1">输出某年份出生人数</a></li>
+          <li><a href="/babynames_2">绘制出生人数折线图</a></li>
+          <li><a href="/babynames_3">绘制出生人数条形图</a></li>
+          <li><a href="/babynames_4">绘制生存人数折线图</a></li>
+          <li><a href="/babynames_5">计算出生人数相关系数</a></li>
+          <li><a href="/babynames_6">输出某年男女共用姓名</a></li>
+          <li><a href="/babynames_7">输出某年常用名</a></li>
+        </ul>
+        <hr class="hidden-sm hidden-md hidden-lg">
+      </div>
+      <div class="col-md-9">
+        <form method="post" id="fm">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputEmail1">姓名</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Jack" name = "name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">年份</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="1880~2010" name = "year">
+          </div>
+          <button type="input" class="btn btn-default" id="submit">Submit</button>   <!--这里的type要改为button 不然会提交两次 之前写的是input-->
+        </form>
+        <!--虽然这里的ajax成功了 但是动态提交表单还要ajax 有点麻烦 先不用ajax了-->
+      <!--ajax表单动态提交-->
+      <!-- <script>
+        $(function()
+        {
+            $('#submit').click(function () {
+                $.ajax({
+                    url: '/babynames_1/',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: $('#fm').serialize(),
+                    success: function (arg) {
+                        if (arg.status == 'true') {
+                            window.location.href = 'http://www.baidu.com'
+                        }else{
+                            console.log(arg.message);
+                            $("#msg").html(arg.message);
+                        }
+                    }
+                })
+    
+            })
+    
+        })
+    </script> -->
+        <br>
+        <div id="main" style="width: 600px;height:400px;"></div>
+        <script type="text/javascript">
+          // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('main'));
+            
+          // 指定图表的配置项和数据
+          var option = {
+            title: {
+              text: {{name|safe}}+"的出生人数"
+            },
+            tooltip: {},
+            legend: {
+              data: ['出生人数']
+            },
+            xAxis: {
+              data: {{year|safe}}//["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+              //name:'单位：年份'
+            },
+            yAxis: {
+              name:'单位：出生人数'
+            },
+            series: [{
+              name: '出生人数',
+              type: 'scatter',
+              data: {{num|safe}}//[5, 20, 36, 10, 10, 20]
+            }]
+          };
+
+          // 使用刚指定的配置项和数据显示图表。
+          myChart.setOption(option);
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="jumbotron text-center" style="margin-bottom:0">
+    <p>written by ljh 20174302</p>
+    <p>{{dic.name}}</p>
+    <p>{{dic.year}}</p>
+  </div>
+</body>
+
+</html>
